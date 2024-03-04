@@ -30,9 +30,8 @@ def download_data(url, output_path, compressed=True):
             # Extract contents based on file extension
             temp_file_path = temp_file.name
             if compressed:
-                with open(temp_file_path, "rt") as gz_file:
-                    gz_data = gz_file.read()
-                content = gzip.decompress(gz_data)
+                with gzip.open(temp_file_path) as gz_file:
+                    content = gz_file.read()
             else:
                 with open(temp_file_path, "r") as file:
                     content = file.read()
