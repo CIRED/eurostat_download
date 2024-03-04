@@ -3,7 +3,7 @@
 
 import os
 import requests
-import zipfile
+import gzip
 import tempfile
 from tqdm import tqdm
 
@@ -31,8 +31,8 @@ def download_data(url, output_path, compressed=True):
             temp_file_path = temp_file.name
             base, extension = os.path.splitext(temp_file_path)
             if compressed:
-                with zipfile.ZipFile(temp_file_path, "r") as zip_file:
-                    content = zip_file.read(zip_file.namelist()[0])
+                with gzip.open(temp_file_path, "rt") as gz_file:
+                    content = gz_file.read()
             else:
                 with open(temp_file_path, "r") as file:
                     content = file.read()
