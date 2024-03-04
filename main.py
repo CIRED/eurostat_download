@@ -32,7 +32,7 @@ def download_data(url, output_path, compressed=True):
             if compressed:
                 with open(temp_file_path, "rt") as gz_file:
                     gz_data = gz_file.read()
-                content = gzip.decompress(gz_data).decode('utf-8')
+                content = gzip.decompress(gz_data)
             else:
                 with open(temp_file_path, "r") as file:
                     content = file.read()
