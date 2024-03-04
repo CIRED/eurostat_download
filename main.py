@@ -7,8 +7,10 @@ import zipfile
 import tempfile
 from tqdm import tqdm
 
+eurostat_data_url = "ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/"
 
-def download_and_process_data(url, output_path, compressed=True):
+
+def download_data(url, output_path, compressed=True):
     # Act as a cache: download only if it is necessary.
     if os.path.exists(output_path):
         print(output_path, " already exists.")
@@ -41,3 +43,13 @@ def download_and_process_data(url, output_path, compressed=True):
 
             # Remove the temporary file
             os.remove(temp_file_path)
+
+
+def get_base_url():
+    return eurostat_data_url
+
+
+def get_url(table_name):
+    return (
+        f"https://{eurostat_data_url}{table_name.upper()}/?format=TSV&compressed=true"
+    )
